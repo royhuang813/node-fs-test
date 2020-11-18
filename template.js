@@ -4,6 +4,7 @@ function print(params) {
   const {
     readMethod,
     writeMethod,
+    copyMethod,
     startTime,
     endTime,
     totalFiles,
@@ -16,6 +17,8 @@ function print(params) {
     读取方式：${readMethod}
 
     写入方式：${writeMethod}
+
+    拷贝方式：${copyMethod}
 
     开始时间：${startTime}
 

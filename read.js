@@ -33,7 +33,7 @@ function readStream(basePath) {
 
   function mapDir(dir, callback, finish) {
     fs.readdir(dir, function (err, files) {
-      console.log('FFF',files)
+      // console.log('FFF',files)
       if (err) {
         console.error(err)
         return
@@ -92,11 +92,11 @@ function readFileSync(basePath) {
         totalTime: diff(end, start) + 'ms'
       })
       // 读取文件后的处理
-      fs.open('read.txt', 'a', function(err,fd){
-        fs.write(fd, file.toString(), (err) => {
-          if (err) throw err;
-        })
-      })
+      // fs.open('read.txt', 'a', function(err,fd){
+      //   fs.write(fd, file.toString(), (err) => {
+      //     if (err) throw err;
+      //   })
+      // })
     },
     function (filename) {
       // console.log(`${filename}文件目录遍历完了`)

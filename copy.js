@@ -12,20 +12,20 @@ function copyFileStream(basePath, targetPath) {
     return end - start
   }
 
-  checkDir(basePath, targetPath, copy, printback)
+  checkDir(basePath, targetPath, copy)
 
   function printback() {
     end = moment().format('x');
     template({
-      readMethod: '流拷贝',
+      copyMethod: '流拷贝',
       startTime: start,
       endTime: end,
-      // totalFiles: ++totalFiles,
+      totalFiles: ++totalFiles,
       totalTime: diff(end, start) + 'ms'
     })
   }
 
-  function copy(src, dest, callback) {
+  function copy(src, dest) {
     let srcPath = fs.readdirSync(src);
     srcPath.forEach(path => {
       let tempSrc = src + '\\' + path,
@@ -38,19 +38,19 @@ function copyFileStream(basePath, targetPath) {
           let readerStream = fs.createReadStream(tempSrc),
             writerStream = fs.createWriteStream(tempDest);
           readerStream.pipe(writerStream)
-          callback && callback()
+          printback()
         }
       })
     })
   }
 
-  function checkDir(src, dest, callback, printback) {
+  function checkDir(src, dest, callback) {
     fs.access(dest, err => {
       if (err) {
         fs.mkdirSync(dest)
-        callback(src, dest, printback)
+        callback(src, dest)
       } else {
-        callback(src, dest, printback)
+        callback(src, dest)
       }
     })
   }
@@ -65,20 +65,20 @@ function copyFileSync(basePath, targetPath) {
     return end - start
   }
 
-  checkDir(basePath, targetPath, copy, printback)
+  checkDir(basePath, targetPath, copy)
 
   function printback() {
     end = moment().format('x');
     template({
-      readMethod: '同步拷贝',
+      copyMethod: '同步拷贝',
       startTime: start,
       endTime: end,
-      // totalFiles: ++totalFiles,
+      totalFiles: ++totalFiles,
       totalTime: diff(end, start) + 'ms'
     })
   }
 
-  function copy(src, dest, callback) {
+  function copy(src, dest) {
     let srcPath = fs.readdirSync(src);
     srcPath.forEach(path => {
       let tempSrc = src + '\\' + path,
@@ -89,20 +89,19 @@ function copyFileSync(basePath, targetPath) {
           checkDir(tempSrc, tempDest, copy)
         } else if (stats.isFile()) {
           fs.copyFileSync(tempSrc, tempDest)
-          // callback()
-          console.log('qsadsa', typeof callback)
+          printback()
         }
       })
     })
   }
 
-  function checkDir(src, dest, callback, printback) {
+  function checkDir(src, dest, callback) {
     fs.access(dest, err => {
       if (err) {
         fs.mkdirSync(dest)
-        callback(src, dest, printback)
+        callback(src, dest)
       } else {
-        callback(src, dest, printback)
+        callback(src, dest)
       }
     })
   }
@@ -117,20 +116,20 @@ function copyFile(basePath, targetPath) {
     return end - start
   }
 
-  checkDir(basePath, targetPath, copy, printback)
+  checkDir(basePath, targetPath, copy)
 
   function printback() {
     end = moment().format('x');
     template({
-      readMethod: '异步拷贝',
+      copyMethod: '异步拷贝',
       startTime: start,
       endTime: end,
-      // totalFiles: ++totalFiles,
+      totalFiles: ++totalFiles,
       totalTime: diff(end, start) + 'ms'
     })
   }
 
-  function copy(src, dest, callback) {
+  function copy(src, dest) {
     let srcPath = fs.readdirSync(src);
     srcPath.forEach(path => {
       let tempSrc = src + '\\' + path,
@@ -141,20 +140,20 @@ function copyFile(basePath, targetPath) {
           checkDir(tempSrc, tempDest, copy)
         } else if (stats.isFile()) {
           fs.copyFile(tempSrc, tempDest, () => {
-            callback && callback()
+            printback()
           })
         }
       })
     })
   }
 
-  function checkDir(src, dest, callback, printback) {
+  function checkDir(src, dest, callback) {
     fs.access(dest, err => {
       if (err) {
         fs.mkdirSync(dest)
-        callback(src, dest, printback)
+        callback(src, dest)
       } else {
-        callback(src, dest, printback)
+        callback(src, dest)
       }
     })
   }
